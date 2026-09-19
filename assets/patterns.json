@@ -1,0 +1,174 @@
+{
+  "version": "1.0.0",
+  "description": "ScamShield offline pattern database. Signals use weighted regex/keyword matching. All weights are heuristic tuning values, not statistical confidence.",
+  "patterns": [
+    {
+      "id": "romance-scam",
+      "name": "Romance / Sweetheart Scam",
+      "category": "Romance scam",
+      "explanation": "Scammers build fake online relationships, often claiming to work overseas, on an oil rig, or in the military, then invent emergencies that require money. They avoid meeting in person and quickly profess deep love.",
+      "advice": "Never send money, gift cards, or banking details to someone you have only met online. Talk to a trusted family member before sending anything. Reverse-image-search their photos and be suspicious of anyone who always has a reason they cannot video call or visit.",
+      "signals": [
+        { "label": "Professes love or devotion very quickly", "type": "regex", "pattern": "soul ?mate|my (love|darling|dear)|love of my life|god (sent|brought) (you|us)", "weight": 0.3 },
+        { "label": "Claims to work overseas, on an oil rig, or deployed military", "type": "regex", "pattern": "oil rig|overseas|deploy(ed|ment)|peacekeeping|stationed (in|abroad)", "weight": 0.3 },
+        { "label": "Met on a dating site or social media", "type": "regex", "pattern": "dating (site|app)|met online|facebook|instagram", "weight": 0.15 },
+        { "label": "Asks for money, gift cards, or wire transfer", "type": "regex", "pattern": "gift ?cards?|wire (transfer|money)|send (me )?(money|cash)|steam card|itunes card", "weight": 0.35 },
+        { "label": "Sudden emergency requiring funds (customs, hospital, travel)", "type": "regex", "pattern": "stuck at (the )?customs|hospital bill|plane ticket|emergency", "weight": 0.25 }
+      ]
+    },
+    {
+      "id": "irs-tax-impersonation",
+      "name": "IRS / Tax Agency Impersonation",
+      "category": "IRS/tax impersonation",
+      "explanation": "Scammers pose as the IRS or another tax authority and threaten arrest, lawsuits, or deportation unless you pay immediately. Real tax agencies contact you by mail first and never demand payment by gift card or wire transfer.",
+      "advice": "Hang up or delete the message. The IRS does not call, text, or email demanding immediate payment, and never accepts gift cards. If you are worried, contact the IRS directly using the official number on irs.gov or ask a family member to help you check.",
+      "signals": [
+        { "label": "Claims to be the IRS or a tax authority", "type": "regex", "pattern": "\\birs\\b|internal revenue|tax (crime|fraud|agency)|revenue service", "weight": 0.35 },
+        { "label": "Threatens arrest, lawsuit, or legal action", "type": "regex", "pattern": "arrest warrant|will be arrested|lawsuit|legal action|federal agents|court order", "weight": 0.3 },
+        { "label": "Demands immediate payment", "type": "regex", "pattern": "pay (immediately|now|today)|within (24|48) hours|immediate(ly)? payment", "weight": 0.25 },
+        { "label": "Demands gift cards, wire transfer, or crypto payment", "type": "regex", "pattern": "gift ?cards?|wire transfer|bitcoin|prepaid card", "weight": 0.3 },
+        { "label": "Mentions unpaid or back taxes", "type": "regex", "pattern": "back taxes|unpaid taxes|tax debt|outstanding balance", "weight": 0.2 }
+      ]
+    },
+    {
+      "id": "grandparent-emergency",
+      "name": "Grandparent / Family Emergency Scam",
+      "category": "Grandparent scam",
+      "explanation": "A scammer pretends to be a grandchild or other relative in trouble — in jail, in an accident, or stranded — and begs for money while insisting you keep it secret from the rest of the family.",
+      "advice": "Slow down. Ask a question only your real grandchild would know, then hang up and call them or their parents directly on a number you already have. Any demand for secrecy or urgent money is a red flag.",
+      "signals": [
+        { "label": "Opens with 'Grandma' / 'Grandpa' or claims to be a relative", "type": "regex", "pattern": "grandma|grandpa|(it's|it is) me,? (your )?(grand)?(son|daughter|nephew|niece)", "weight": 0.35 },
+        { "label": "Asks you to keep it secret from family", "type": "regex", "pattern": "don't tell|do not tell|keep (this|it) (a )?secret|please don't tell (mom|dad|my parents)", "weight": 0.35 },
+        { "label": "Claims to be in jail, an accident, or stranded", "type": "regex", "pattern": "in jail|been arrested|car accident|stranded|in the hospital|need bail", "weight": 0.3 },
+        { "label": "Urgent plea for money right away", "type": "regex", "pattern": "need (money|cash|help) (right now|right away|urgently|asap)|as soon as possible", "weight": 0.25 },
+        { "label": "Asks for gift cards, wire transfer, or a courier to pick up cash", "type": "regex", "pattern": "gift ?cards?|wire (transfer|money)|courier|bail bondsman", "weight": 0.3 }
+      ]
+    },
+    {
+      "id": "lottery-sweepstakes",
+      "name": "Lottery / Sweepstakes Scam",
+      "category": "Lottery/sweepstakes",
+      "explanation": "You are told you won a lottery, sweepstakes, or prize you never entered. To 'release' the winnings you must first pay fees, taxes, or provide banking details. Real lotteries never ask winners to pay to collect a prize.",
+      "advice": "You cannot win a contest you did not enter. Never pay fees or taxes upfront to receive a prize, and never share bank details with a 'prize agent'. Delete the message.",
+      "signals": [
+        { "label": "Announces you won a prize or lottery", "type": "regex", "pattern": "you (have|ve) won|congratulations|winner|winning (ticket|number)|jackpot", "weight": 0.35 },
+        { "label": "References a lottery, sweepstakes, or random drawing", "type": "regex", "pattern": "lottery|sweepstakes|random(ly)? (selected|drawn)|prize draw", "weight": 0.25 },
+        { "label": "Requires upfront fees or taxes to claim", "type": "regex", "pattern": "processing fee|handling fee|(pay|cover) (the )?(tax|fees)|insurance fee|release (your|the) (funds|prize)", "weight": 0.35 },
+        { "label": "Urges you to claim quickly or keep the win confidential", "type": "regex", "pattern": "claim (now|immediately|within)|expires|keep (this|your win) (confidential|secret)", "weight": 0.2 },
+        { "label": "Asks for banking or personal details to 'verify'", "type": "regex", "pattern": "bank (account|details)|verify your identity|claim agent|fiduciary agent", "weight": 0.25 }
+      ]
+    },
+    {
+      "id": "phishing-credentials",
+      "name": "Phishing / Credential Harvesting",
+      "category": "Phishing credential harvest",
+      "explanation": "A fake message pretends to be a company you use and pushes you to click a link and 'verify' your password, account, or identity. The link leads to a lookalike site that steals your login.",
+      "advice": "Do not click links in unexpected messages. Open the app or type the company's official website address yourself, and check your account there. Turn on two-factor authentication and never reuse passwords.",
+      "signals": [
+        { "label": "Claims your account is suspended, locked, or expiring", "type": "regex", "pattern": "account (has been|will be) (suspended|locked|limited|closed)|unusual (activity|sign-?in)", "weight": 0.35 },
+        { "label": "Asks you to verify or confirm credentials or identity", "type": "regex", "pattern": "verify your (account|identity|password|email)|confirm your (password|details|identity)|update your (payment|billing) (info|information)", "weight": 0.35 },
+        { "label": "Pushes a link to click", "type": "regex", "pattern": "click (the )?(link|here|below)|tap (the )?link|log ?in here|http[s]?://", "weight": 0.25 },
+        { "label": "Urgency deadline (24/48 hours)", "type": "regex", "pattern": "within (24|48) hours|immediately|urgent(ly)?|failure to (verify|respond)", "weight": 0.2 },
+        { "label": "Generic greeting instead of your name", "type": "regex", "pattern": "dear (customer|user|member|valued)|dear sir|dear madam", "weight": 0.15 }
+      ]
+    },
+    {
+      "id": "tech-support-scam",
+      "name": "Tech Support Scam",
+      "category": "Tech support scam",
+      "explanation": "A popup, call, or message claims your computer has a virus and urges you to call 'support' or grant remote access. The scammer then charges for fake fixes or steals information. Microsoft, Apple, and Google never cold-contact you about infections.",
+      "advice": "Never call the number in a popup and never give a stranger remote access to your computer. Close the page (force-quit the browser if needed) and ask a trusted person or local repair shop if you are unsure.",
+      "signals": [
+        { "label": "Claims your device has a virus or is infected", "type": "regex", "pattern": "virus|malware|infected|security (warning|breach)|spyware", "weight": 0.35 },
+        { "label": "Impersonates Microsoft, Apple, or other tech support", "type": "regex", "pattern": "microsoft (support|technician)|apple support|windows (support|defender)|tech(nical)? support", "weight": 0.3 },
+        { "label": "Tells you to call a phone number immediately", "type": "regex", "pattern": "call (this number|us|now|immediately)|toll[- ]free", "weight": 0.3 },
+        { "label": "Requests remote access to your device", "type": "regex", "pattern": "remote access|teamviewer|anydesk|install (this|the) (app|software)", "weight": 0.35 },
+        { "label": "Mentions a refund or subscription charge you must cancel", "type": "regex", "pattern": "refund (department|of)|subscription (will|has been) (renewed|charged)|auto-?renew", "weight": 0.2 }
+      ]
+    },
+    {
+      "id": "crypto-investment",
+      "name": "Crypto / Investment Scam",
+      "category": "Crypto investment scam",
+      "explanation": "Promises of guaranteed or enormous returns on crypto, forex, or 'AI trading' investments are a classic fraud. Victims see fake profits on a fake platform, then cannot withdraw without paying endless 'fees'.",
+      "advice": "There is no such thing as a guaranteed investment return. Never invest through someone who contacted you out of the blue, and never pay extra fees to withdraw your own money. Talk to a licensed financial advisor or family member first.",
+      "signals": [
+        { "label": "Promises guaranteed or risk-free high returns", "type": "regex", "pattern": "guaranteed (returns?|profit)|risk[- ]free|double your (money|investment)|\\b[0-9]+% (daily|weekly|returns?|profit)", "weight": 0.4 },
+        { "label": "Pushes crypto, forex, or a trading platform", "type": "regex", "pattern": "bitcoin|crypto(currency)?|forex|trading platform|usdt|ethereum", "weight": 0.3 },
+        { "label": "Urgency to invest before the opportunity closes", "type": "regex", "pattern": "limited (time|spots)|act now|don't miss|once in a lifetime", "weight": 0.2 },
+        { "label": "Requires a fee, tax, or deposit to withdraw profits", "type": "regex", "pattern": "withdrawal (fee|tax)|pay (a )?(fee|tax|commission) to (withdraw|release)|unlock your (funds|profits)", "weight": 0.35 },
+        { "label": "A stranger or online contact offers to teach you to invest", "type": "regex", "pattern": "mentor|account manager|investment (advisor|coach)|let me show you how", "weight": 0.2 }
+      ]
+    },
+    {
+      "id": "package-delivery-phishing",
+      "name": "Package Delivery Phishing",
+      "category": "Package delivery phishing",
+      "explanation": "A text or email claims a package from USPS, FedEx, UPS, or DHL could not be delivered and asks you to click a link or pay a small 'redelivery fee'. The link steals card details or installs malware.",
+      "advice": "Do not click the link. Real carriers do not text you demanding fees. If you are expecting a package, go to the carrier's official website or app and enter the tracking number yourself.",
+      "signals": [
+        { "label": "Claims a package failed delivery or is held", "type": "regex", "pattern": "(package|parcel|shipment|delivery) (was |has been )?(failed|undeliverable|held|pending|on hold)|unable to deliver", "weight": 0.35 },
+        { "label": "Impersonates a shipping carrier", "type": "regex", "pattern": "\\busps\\b|\\bfedex\\b|\\bups\\b|\\bdhl\\b|postal service|courier", "weight": 0.3 },
+        { "label": "Asks for a small redelivery or customs fee", "type": "regex", "pattern": "redelivery fee|customs (fee|charge)|pay (a )?(small )?(fee|charge)|\\$[0-9]+\\.[0-9]{2} (fee|to)", "weight": 0.3 },
+        { "label": "Pushes a link to reschedule or track", "type": "regex", "pattern": "click (here|the link)|reschedule|track (your )?(package|parcel)|update your (address|delivery)", "weight": 0.25 },
+        { "label": "Urgency: package will be returned or destroyed", "type": "regex", "pattern": "within (24|48) hours|will be (returned|destroyed|discarded)|final (notice|attempt)", "weight": 0.2 }
+      ]
+    },
+    {
+      "id": "bank-fraud-alert",
+      "name": "Fake Bank Fraud Alert",
+      "category": "Bank fraud alert scam",
+      "explanation": "A scammer pretends to be your bank's fraud department, claims there is suspicious activity, and tricks you into 'verifying' your account or moving money to a 'safe account'. Moving your own money to a new account is the theft — real banks never ask for that.",
+      "advice": "Hang up and call your bank using the number on the back of your card. Your bank will never ask for your full password, a one-time code, or ask you to transfer money to keep it safe.",
+      "signals": [
+        { "label": "Claims to be your bank's fraud or security department", "type": "regex", "pattern": "fraud (department|team|alert|protection)|security (department|team)|your bank", "weight": 0.35 },
+        { "label": "Reports suspicious or unauthorized activity", "type": "regex", "pattern": "suspicious (activity|transaction|charge)|unauthori[sz]ed (charge|transaction|purchase)|fraudulent charge", "weight": 0.3 },
+        { "label": "Asks you to move money to a 'safe' account or via Zelle/wire", "type": "regex", "pattern": "safe account|secure account|transfer (your )?(money|funds)|zelle|wire (the )?funds", "weight": 0.4 },
+        { "label": "Requests passwords, PINs, or one-time codes", "type": "regex", "pattern": "one[- ]time (code|passcode)|verification code|\\bpin\\b|full password|security code", "weight": 0.35 },
+        { "label": "Pressure to act immediately or account will be frozen", "type": "regex", "pattern": "act immediately|account (will be|has been) (frozen|locked|closed)|right now", "weight": 0.2 }
+      ]
+    },
+    {
+      "id": "charity-scam",
+      "name": "Fake Charity Scam",
+      "category": "Charity scam",
+      "explanation": "Scammers exploit disasters and holidays with fake charities, pressuring you to donate immediately — often by gift card, wire, or crypto, which real charities never demand. Emotional stories plus urgency plus untraceable payment is the classic pattern.",
+      "advice": "Donate only through the charity's official website after looking it up yourself. Check the organization on a charity watchdog site, and never donate with gift cards, wire transfers, or crypto.",
+      "signals": [
+        { "label": "Asks for a donation to a charity or relief fund", "type": "regex", "pattern": "donat(e|ion|ions)|charity|relief fund|fundraiser|go ?fund", "weight": 0.3 },
+        { "label": "Exploits a disaster, war, or tragedy", "type": "regex", "pattern": "disaster|earthquake|flood|wildfire|victims of|orphans|war relief", "weight": 0.25 },
+        { "label": "Pressure to give right now", "type": "regex", "pattern": "donate (now|today|immediately)|urgent(ly)?|every (minute|second) counts", "weight": 0.25 },
+        { "label": "Requests gift cards, wire, or crypto for the donation", "type": "regex", "pattern": "gift ?cards?|wire transfer|bitcoin|crypto", "weight": 0.35 },
+        { "label": "Vague or unverifiable organization", "type": "regex", "pattern": "on behalf of|our foundation|god will bless you|tax[- ]deductible", "weight": 0.15 }
+      ]
+    },
+    {
+      "id": "rental-scam",
+      "name": "Rental / Housing Scam",
+      "category": "Rental scam",
+      "explanation": "A fake landlord lists a real property at a tempting price, then demands a deposit or first month's rent before you can see it — often claiming to be out of the country and offering to mail the keys.",
+      "advice": "Never pay a deposit before touring the property in person or via a verified agent. Be suspicious of below-market rent, excuses about why you cannot view it, and any request to wire money or pay with gift cards.",
+      "signals": [
+        { "label": "Demands deposit or rent before viewing the property", "type": "regex", "pattern": "(deposit|first month|security deposit) .{0,40}(before|first|in advance)|pay .{0,20}(to (hold|reserve|secure))", "weight": 0.4 },
+        { "label": "Landlord claims to be out of the country or unavailable", "type": "regex", "pattern": "out of the (country|state)|abroad|on a (mission|business trip)|cannot show you", "weight": 0.3 },
+        { "label": "Offers to mail keys after payment", "type": "regex", "pattern": "mail (you )?the keys|send (you )?the keys|keys (will be sent|via courier)", "weight": 0.35 },
+        { "label": "Rent is suspiciously below market with urgency", "type": "regex", "pattern": "act fast|won't last|many (people|applicants) interested|below market", "weight": 0.2 },
+        { "label": "Requests wire transfer, gift cards, or crypto", "type": "regex", "pattern": "wire (transfer|the)|gift ?cards?|bitcoin|cash app|venmo .{0,20}(deposit|rent)", "weight": 0.3 }
+      ]
+    },
+    {
+      "id": "sextortion",
+      "name": "Sextortion / Blackmail Scam",
+      "category": "Sextortion",
+      "explanation": "The sender claims to have hacked your webcam or device and recorded compromising video, threatening to send it to your contacts unless you pay — usually in Bitcoin. These claims are almost always bluffs sent in bulk; the 'password' they quote usually comes from an old data breach.",
+      "advice": "Do not pay and do not reply. The claims are almost never real. Change the password they mention anywhere you still use it, cover your webcam if it reassures you, and report the message. If you have already paid, talk to someone you trust and report it to the FBI at ic3.gov.",
+      "signals": [
+        { "label": "Claims to have recorded you via webcam or malware", "type": "regex", "pattern": "recorded (you|a video)|webcam|compromising (video|footage|material)|hacked your (device|computer|camera)", "weight": 0.4 },
+        { "label": "Threatens to send material to your contacts", "type": "regex", "pattern": "send (it|the video|this) to (all )?your (contacts|friends|family|colleagues)", "weight": 0.35 },
+        { "label": "Demands payment in Bitcoin or crypto", "type": "regex", "pattern": "bitcoin|btc|crypto(currency)? wallet", "weight": 0.3 },
+        { "label": "Claims to know your password as 'proof'", "type": "regex", "pattern": "i know your password|your password is|one of your password", "weight": 0.25 },
+        { "label": "Sets a short deadline to pay or else", "type": "regex", "pattern": "within (24|48|72) hours|deadline|pay .{0,20}or (i|else)", "weight": 0.2 }
+      ]
+    }
+  ]
+}
