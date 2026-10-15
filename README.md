@@ -1,3 +1,5 @@
+![scamshield](.github/preview.png)
+
 # ScamShield
 
 An offline, open-source scam pattern detector for Android and iOS, built to help
